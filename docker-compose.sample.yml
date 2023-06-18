@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+  gateway:
+    container_name: ntdgb-gateway
+    image: ntdgb-gateway-image
+    depends_on:
+      - socket
+    build:
+      context: ./src/gateway
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+
+  socket:
+    container_name: ntdgb-socket
+    image: ntdgb-socket-image
+    build:
+      context: ./src/subgraphs/socket
+      dockerfile: Dockerfile

@@ -1,0 +1,56 @@
+{
+  "name": "@ntfgb/supergraph",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "npx tsc",
+    "pretty": "cross-os pretty",
+    "pretty:check": "cross-os pretty:check",
+    "lint": "cross-os lint",
+    "prepare": "husky install",
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "npm": "9",
+    "node": "18"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "cross-os": "^1.5.0",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "prettier": "^2.8.8"
+  },
+  "cross-os": {
+    "pretty": {
+      "darwin": "prettier --write 'src/**/*.ts'",
+      "linux": "prettier --write 'src/**/*.ts'",
+      "win32": "prettier --write src/**/*.ts"
+    },
+    "pretty:check": {
+      "darwin": "prettier --check 'src/**/*.ts'",
+      "linux": "prettier --check 'src/**/*.ts'",
+      "win32": "prettier --check src/**/*.ts"
+    },
+    "lint": {
+      "darwin": "eslint 'src/**/*.ts'",
+      "linux": "eslint 'src/**/*.ts'",
+      "win32": "eslint src/**/*.ts"
+    }
+  },
+  "workspaces": [
+    "./src/*",
+    "./src/*/*"
+  ],
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
