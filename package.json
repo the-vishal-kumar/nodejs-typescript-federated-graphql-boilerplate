@@ -10,9 +10,16 @@
     "prepare": "husky install",
     "start": "ts-node src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-vishal-kumar/nodejs-typescript-federated-graphql-boilerplate.git"
+  },
+  "author": "Vishal Kumar <vishal194kumar@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/the-vishal-kumar/nodejs-typescript-federated-graphql-boilerplate/issues"
+  },
+  "homepage": "https://github.com/the-vishal-kumar/nodejs-typescript-federated-graphql-boilerplate#readme",
   "engines": {
     "npm": "9",
     "node": "18"
