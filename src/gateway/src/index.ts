@@ -20,9 +20,13 @@ const buildGateway = async (port: number): Promise<void> => {
     plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   });
   const { url } = await server.listen(port);
-  console.log(`Gateway running ${url}`);
+  console.log(`🚀Gateway running ${url}`);
 };
 
 void (async (): Promise<void> => {
-  await buildGateway(4000);
+  try {
+    await buildGateway(4000);
+  } catch (error) {
+    console.error('Unable to spin up Gateway:- ', error);
+  }
 })();

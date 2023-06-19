@@ -3,8 +3,8 @@ version: '3.8'
 services:
 
   gateway:
-    container_name: ntdgb-gateway
-    image: ntdgb-gateway-image
+    container_name: ntfgb-gateway
+    image: ntfgb-gateway-image
     depends_on:
       - socket
     build:
@@ -14,8 +14,22 @@ services:
       - "4000:4000"
 
   socket:
-    container_name: ntdgb-socket
-    image: ntdgb-socket-image
+    container_name: ntfgb-socket
+    image: ntfgb-socket-image
+    depends_on:
+      - mongo
     build:
       context: ./src/subgraphs/socket
       dockerfile: Dockerfile
+    environment:
+        - OPEN_CHARGE_MAP_API_KEY=<Your Key Goes Here>
+        - MONGO_URI=mongodb://mongo:27017/ntfgb
+
+  mongo:
+    build:
+      context: ./src/database
+      dockerfile: Dockerfile
+    ports:
+      - '27017:27017'
+    container_name: ntfgb-mongodb
+    image: ntfgb-mongodb-image

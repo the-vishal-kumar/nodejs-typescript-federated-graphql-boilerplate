@@ -4,11 +4,12 @@
   "description": "",
   "scripts": {
     "build": "npx tsc",
+    "start": "docker-compose up",
+    "dev": "docker-compose up --build",
     "pretty": "cross-os pretty",
     "pretty:check": "cross-os pretty:check",
     "lint": "cross-os lint",
-    "prepare": "husky install",
-    "start": "ts-node src/index.ts"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
