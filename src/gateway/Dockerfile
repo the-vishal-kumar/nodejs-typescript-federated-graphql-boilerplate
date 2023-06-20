@@ -13,11 +13,8 @@ RUN npm i
 # Copy the rest of the application code to the container
 COPY . .
 
-# # Build the TypeScript code
-# RUN npm run build
-
-# Expose port
-EXPOSE 4000
+# Build the TypeScript code
+RUN npm run build
 
 # Start the application
-CMD [ "npm", "start"]
+CMD [ "node", "build/index.js"]

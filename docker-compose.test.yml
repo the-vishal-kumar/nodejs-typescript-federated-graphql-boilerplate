@@ -1,10 +1,10 @@
 version: '3.8'
 services:
-  gateway:
-    container_name: ntfgb-gateway
-    image: ntfgb-gateway-image
+  gateway-test:
+    container_name: ntfgb-gateway-test
+    image: ntfgb-gateway-test-image
     depends_on:
-      - socket
+      - socket-test
     build:
       context: ./src/gateway
       dockerfile: Dockerfile
@@ -21,13 +21,13 @@ services:
       - NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED=${NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED}
       - NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED=${NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED}
     networks:
-      - ntfgb
+      - ntfgb-test
 
-  socket:
-    container_name: ntfgb-socket
-    image: ntfgb-socket-image
+  socket-test:
+    container_name: ntfgb-socket-test
+    image: ntfgb-socket-test-image
     depends_on:
-      - mongo
+      - mongo-test
     build:
       context: ./src/subgraphs/socket
       dockerfile: Dockerfile
@@ -42,23 +42,16 @@ services:
       - NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED=${NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED}
       - NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED=${NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED}
     networks:
-      - ntfgb
+      - ntfgb-test
 
-  mongo:
-    container_name: ntfgb-mongodb
-    image: ntfgb-mongodb-image
+  mongo-test:
+    container_name: ntfgb-mongodb-test
+    image: ntfgb-mongodb-test-image
     build:
-      context: ./src/database
+      context: ./src/database-test
       dockerfile: Dockerfile
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db
     networks:
-      - ntfgb
-
-volumes:
-  mongo-data:
+      - ntfgb-test
 
 networks:
-  ntfgb:
+  ntfgb-test:

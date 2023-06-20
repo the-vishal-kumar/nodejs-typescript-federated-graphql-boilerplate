@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build": "npx tsc",
     "start": "ts-node src/index.ts"
   },
   "keywords": [],
@@ -16,9 +17,13 @@
     "@apollo/gateway": "^2.4.8",
     "apollo-server": "^3.12.0",
     "apollo-server-core": "^3.12.0",
-    "ts-node": "^10.9.1"
+    "newrelic": "^10.3.0",
+    "ts-node": "^10.9.1",
+    "winston": "^3.9.0"
   },
   "devDependencies": {
-    "jest": "^29.5.0"
+    "@types/jest": "^29.5.2",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0"
   }
 }

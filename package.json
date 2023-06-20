@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "npx tsc",
-    "start": "docker-compose up",
-    "dev": "docker-compose up --build",
+    "start": "docker-compose --env-file .env up --build",
+    "test": "docker-compose -f docker-compose.test.yml --env-file .env.test up --build -d && jest --coverage && docker-compose -f docker-compose.test.yml down",
     "pretty": "cross-os pretty",
     "pretty:check": "cross-os pretty:check",
     "lint": "cross-os lint",
@@ -57,8 +57,5 @@
   "workspaces": [
     "./src/*",
     "./src/*/*"
-  ],
-  "dependencies": {
-    "ts-node": "^10.9.1"
-  }
+  ]
 }

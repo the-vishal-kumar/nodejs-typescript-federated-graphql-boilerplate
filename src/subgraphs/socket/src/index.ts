@@ -1,5 +1,8 @@
+import 'newrelic';
+
 import cron from 'node-cron';
-import { MongoAppInit, NodeAppInit } from '../src/app';
+import { MongoAppInit, NodeAppInit } from './app';
+import { Logger } from './util';
 import { pullSocket } from './cron';
 
 void (async (): Promise<void> => {
@@ -7,8 +10,8 @@ void (async (): Promise<void> => {
   await NodeAppInit();
 
   cron.schedule('1 0 * * *', async (): Promise<void> => {
-    console.log('Socket polling initiated...');
+    Logger.info('Socket polling initiated...');
     await pullSocket();
-    console.log('Socket polling finished...');
+    Logger.info('Socket polling finished...');
   });
 })();

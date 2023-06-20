@@ -1,4 +1,5 @@
+import * as Array from './array';
 import Enum from './enum';
-import { filterArrayAsync } from './array';
+import Logger from './logger';
 
-export { Enum, filterArrayAsync };
+export { Array, Enum, Logger };

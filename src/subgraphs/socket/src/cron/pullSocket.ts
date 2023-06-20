@@ -1,6 +1,6 @@
 import { Socket } from '../model';
 import { ISocketDocument } from '../type';
-import { filterArrayAsync } from '../util';
+import { Logger, Array } from '../util';
 const { OPEN_CHARGE_MAP_API_KEY } = process.env;
 
 export const pullSocket = async (): Promise<void> => {
@@ -21,7 +21,7 @@ export const pullSocket = async (): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fetchedSockets: any[] = await (await fetch(uri, requestOptions)).json();
 
-    const socketsToBeUpserted = await filterArrayAsync(fetchedSockets, async item => {
+    const socketsToBeUpserted = await Array.filterArrayAsync(fetchedSockets, async item => {
       let socket = await Socket.findOne({ uuid: item.uuid });
       if (socket) {
         socket = socket.toObject();
@@ -42,6 +42,6 @@ export const pullSocket = async (): Promise<void> => {
 
     await Socket.insertMany(sockets);
   } catch (err) {
-    console.error(err);
+    Logger.error(err);
   }
 };

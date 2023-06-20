@@ -13,8 +13,11 @@ RUN npm i
 # Copy the rest of the application code to the container
 COPY . .
 
-# # Build the TypeScript code
-# RUN npm run build
+# Build the TypeScript code
+RUN npm run build
+
+# Copy graphql.schema
+COPY /src/app/node-server/schema.graphql /subgraph/socket/build/app/node-server/schema.graphql
 
 # Start the application
-CMD [ "npm", "start"]
+CMD [ "node", "build/index.js"]
