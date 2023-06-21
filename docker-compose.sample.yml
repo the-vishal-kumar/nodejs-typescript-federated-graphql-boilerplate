@@ -46,10 +46,7 @@ services:
 
   mongo:
     container_name: ntfgb-mongodb
-    image: ntfgb-mongodb-image
-    build:
-      context: ./src/database
-      dockerfile: Dockerfile
+    image: mongo:6
     ports:
       - '27017:27017'
     volumes:

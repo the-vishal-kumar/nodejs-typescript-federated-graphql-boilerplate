@@ -9,7 +9,7 @@ import { Logger } from './util';
 const buildGateway = async (port: number): Promise<void> => {
   const nodeEnv = String(process.env.NODE_ENV);
   if (!nodeEnv) throw new Error('Node environment undefined');
-  const socketSubgraphName = nodeEnv !== 'test' ? 'socket' : 'socket-test';
+  const socketSubgraphName = nodeEnv !== 'test' ? 'socket' : 'socket_test';
   const gateway = new ApolloGateway({
     debug: true,
     supergraphSdl: new IntrospectAndCompose({
