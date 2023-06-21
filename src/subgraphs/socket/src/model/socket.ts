@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { ISocket, ISocketDocument, ISocketModel } from '../type';
+import { ISocketDocument, ISocketModel } from '../type';
 import { Enum } from '../util';
 
 export const ISOCode = Enum({
@@ -374,7 +374,16 @@ const socketSchema = new Schema(
 );
 
 socketSchema.set('toObject', { getters: true });
-socketSchema.statics.build = (attr: ISocket): unknown => new Socket(attr);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+socketSchema.statics.build = (attribute: any): unknown => {
+  const item = {
+    ...attribute,
+    serial: attribute.id,
+    location: { type: 'Point', coordinates: [attribute.addressInfo.longitude, attribute.addressInfo.latitude] },
+  };
+  delete item.id;
+  return new Socket(item);
+};
 
 const Socket = model<ISocketDocument, ISocketModel>('Socket', socketSchema);
 

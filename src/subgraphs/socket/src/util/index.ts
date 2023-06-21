@@ -1,5 +1,5 @@
 import * as Array from './array';
-import Enum from './enum';
+import Enum, { getEnumKey } from './enum';
 import Logger from './logger';
 
-export { Array, Enum, Logger };
+export { Array, Enum, getEnumKey, Logger };

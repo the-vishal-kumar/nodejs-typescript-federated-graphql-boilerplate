@@ -1,0 +1,211 @@
+{
+  "dataProvider": {
+    "websiteURL": "http://openchargemap.org",
+    "comments": null,
+    "dataProviderStatusType": {
+      "isProviderEnabled": true,
+      "id": 1,
+      "title": "Manual Data Entry"
+    },
+    "isRestrictedEdit": false,
+    "isOpenDataLicensed": true,
+    "isApprovedImport": true,
+    "license": "Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)",
+    "dateLastImported": null,
+    "id": 1,
+    "title": "Open Charge Map Contributors"
+  },
+  "operatorInfo": {
+    "websiteURL": null,
+    "comments": null,
+    "phonePrimaryContact": null,
+    "phoneSecondaryContact": null,
+    "isPrivateIndividual": null,
+    "addressInfo": null,
+    "bookingURL": null,
+    "contactEmail": null,
+    "faultReportEmail": null,
+    "isRestrictedEdit": null,
+    "id": 1,
+    "title": "(Unknown Operator)"
+  },
+  "usageType": {
+    "isPayAtLocation": true,
+    "isMembershipRequired": false,
+    "isAccessKeyRequired": false,
+    "id": 5,
+    "title": "Public - Pay At Location"
+  },
+  "statusType": {
+    "isOperational": true,
+    "isUserSelectable": true,
+    "id": 50,
+    "title": "Operational"
+  },
+  "submissionStatus": {
+    "isLive": true,
+    "id": 200,
+    "title": "Submission Published"
+  },
+  "userComments": null,
+  "percentageSimilarity": null,
+  "mediaItems": [
+    {
+      "id": 37095,
+      "chargePointID": 257047,
+      "itemURL": "https://s3-ap-southeast-2.amazonaws.com/openchargemap/images/IN/OCM257047/OCM-257047.orig.2023032608130174.png",
+      "itemThumbnailURL": "https://s3-ap-southeast-2.amazonaws.com/openchargemap/images/IN/OCM257047/OCM-257047.thmb.2023032608130174.png",
+      "comment": "",
+      "isEnabled": true,
+      "isVideo": false,
+      "isFeaturedItem": false,
+      "isExternalResource": false,
+      "metadataValue": null,
+      "user": {
+        "id": 45036,
+        "identityProvider": null,
+        "identifier": null,
+        "currentSessionToken": null,
+        "username": "rkp",
+        "profile": null,
+        "location": null,
+        "websiteURL": null,
+        "reputationPoints": 24,
+        "permissions": null,
+        "permissionsRequested": null,
+        "dateCreated": null,
+        "dateLastLogin": null,
+        "isProfilePublic": null,
+        "isEmergencyChargingProvider": null,
+        "isPublicChargingProvider": null,
+        "latitude": null,
+        "longitude": null,
+        "emailAddress": null,
+        "emailHash": null,
+        "profileImageURL": "https://www.gravatar.com/avatar/23da92941ab87a957d98322a0ce613e7?s=80&d=robohash",
+        "isCurrentSessionTokenValid": null,
+        "apiKey": null,
+        "syncedSettings": null
+      },
+      "dateCreated": "2023-03-26T08:13:00Z"
+    }
+  ],
+  "isRecentlyVerified": true,
+  "dateLastVerified": "2023-03-26T11:50:00Z",
+  "id": 257047,
+  "uuid": "1F9E686C-CDBC-464F-AC9B-B726238ECAF6",
+  "parentChargePointID": null,
+  "dataProviderID": 1,
+  "dataProvidersReference": null,
+  "operatorID": 1,
+  "operatorsReference": null,
+  "usageTypeID": 5,
+  "usageCost": null,
+  "addressInfo": {
+    "id": 257431,
+    "title": "Capital EV Charging Station (Kalupur)",
+    "addressLine1": "2JF2+X5J, Kalupur Railway Station Rd, Laxmi Bazar, Kalupur",
+    "addressLine2": null,
+    "town": "Ahmedabad",
+    "stateOrProvince": "Gujarat",
+    "postcode": "380002",
+    "countryID": 106,
+    "country": {
+      "isoCode": "IN",
+      "continentCode": "AS",
+      "id": 106,
+      "title": "India"
+    },
+    "latitude": 23.067645727534426,
+    "longitude": 72.66492752114209,
+    "contactTelephone1": null,
+    "contactTelephone2": null,
+    "contactEmail": null,
+    "accessComments": "Railway Station Parking ",
+    "relatedURL": null,
+    "distance": null,
+    "distanceUnit": 0
+  },
+  "connections": [
+    {
+      "id": 433132,
+      "connectionTypeID": 33,
+      "connectionType": {
+        "formalName": "IEC 62196-3 Configuration FF",
+        "isDiscontinued": false,
+        "isObsolete": false,
+        "id": 33,
+        "title": "CCS (Type 2)"
+      },
+      "reference": null,
+      "statusTypeID": 50,
+      "statusType": {
+        "isOperational": true,
+        "isUserSelectable": true,
+        "id": 50,
+        "title": "Operational"
+      },
+      "levelID": 3,
+      "level": {
+        "comments": "40KW and Higher",
+        "isFastChargeCapable": true,
+        "id": 3,
+        "title": "Level 3:  High (Over 40kW)"
+      },
+      "amps": null,
+      "voltage": null,
+      "powerKW": 25,
+      "currentTypeID": 30,
+      "currentType": {
+        "description": "Direct Current",
+        "id": 30,
+        "title": "DC"
+      },
+      "quantity": 1,
+      "comments": null
+    },
+    {
+      "id": 433133,
+      "connectionTypeID": 0,
+      "connectionType": {
+        "formalName": "Not Specified",
+        "isDiscontinued": null,
+        "isObsolete": null,
+        "id": 0,
+        "title": "Unknown"
+      },
+      "reference": null,
+      "statusTypeID": 0,
+      "statusType": {
+        "isOperational": null,
+        "isUserSelectable": true,
+        "id": 0,
+        "title": "Unknown"
+      },
+      "levelID": 2,
+      "level": {
+        "comments": "Over 2 kW, usually non-domestic socket type",
+        "isFastChargeCapable": false,
+        "id": 2,
+        "title": "Level 2 : Medium (Over 2kW)"
+      },
+      "amps": null,
+      "voltage": null,
+      "powerKW": 25,
+      "currentTypeID": null,
+      "currentType": null,
+      "quantity": 6,
+      "comments": null
+    }
+  ],
+  "numberOfPoints": 1,
+  "generalComments": null,
+  "datePlanned": null,
+  "dateLastConfirmed": null,
+  "statusTypeID": 50,
+  "dateLastStatusUpdate": "2023-03-26T11:50:00Z",
+  "metadataValues": null,
+  "dataQualityLevel": 1,
+  "dateCreated": "2023-03-17T05:19:00Z",
+  "submissionStatusTypeID": 200
+}

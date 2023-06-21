@@ -1,3 +1,16 @@
+export const getEnumKey = <T extends Record<string, string>>(
+  enumObj: T,
+  value: string | null | undefined,
+): keyof T | string | null => {
+  const enumKeys = Object.keys(enumObj) as Array<keyof T>;
+  for (const key of enumKeys) {
+    if (enumObj[key] === value) {
+      return key;
+    }
+  }
+  return value || null;
+};
+
 type EnumType<T> = {
   [K in keyof T]: T[K] extends string | number ? T[K] : never;
 };

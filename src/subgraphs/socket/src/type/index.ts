@@ -1,3 +1,2 @@
-import { ISocket, ISocketDocument, ISocketModel } from './Socket';
-
-export { ISocket, ISocketDocument, ISocketModel };
+export * from './model';
+export * from './resolver';

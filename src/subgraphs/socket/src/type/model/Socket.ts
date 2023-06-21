@@ -6,7 +6,7 @@ export interface ISocketModel extends Model<ISocketDocument> {
   build(attr: Partial<ISocket>): ISocketDocument;
 }
 
-export interface Point {
+export interface IPoint {
   type: string;
   coordinates: [number, number];
 }
@@ -14,18 +14,18 @@ export interface Point {
 export interface ISocket {
   serial: number;
   uuid: string;
-  operatorInfo: OperatorInfo | null;
-  statusType: StatusType;
-  addressInfo: AddressInfo;
-  location: Point;
-  dataProvider: DataProvider;
-  connections: Connection[];
+  operatorInfo: IOperatorInfo | null;
+  statusType: IStatusType;
+  addressInfo: IAddressInfo;
+  location: IPoint;
+  dataProvider: IDataProvider;
+  connections: IConnection[];
   dateCreated: Date;
   dateLastVerified: Date;
   dateLastStatusUpdate: Date;
 }
 
-export interface OperatorInfo {
+export interface IOperatorInfo {
   websiteURL: null | string;
   comments: null | string;
   phonePrimaryContact: null | string;
@@ -40,7 +40,7 @@ export interface OperatorInfo {
   title: string;
 }
 
-export interface AddressInfo {
+export interface IAddressInfo {
   id: number;
   title: string;
   addressLine1: string;
@@ -49,7 +49,7 @@ export interface AddressInfo {
   stateOrProvince: null | string;
   postcode: null | string;
   countryID: number;
-  country: Country;
+  country: ICountry;
   latitude: number;
   longitude: number;
   contactTelephone1: null | string;
@@ -57,88 +57,88 @@ export interface AddressInfo {
   contactEmail: null | string;
   accessComments: null | string;
   relatedURL: null | string;
-  distance: null;
-  distanceUnit: number;
+  // distance: null;
+  // distanceUnit: number;
 }
 
-export interface Country {
-  isoCode: ISOCode;
-  continentCode: ContinentCode;
+export interface ICountry {
+  isoCode: IISOCode;
+  continentCode: IContinentCode;
   id: number;
-  title: CountryTitle;
+  title: ICountryTitle;
 }
 
-export enum ISOCode {
+export enum IISOCode {
   DE = 'DE',
   IN = 'IN',
 }
 
-export enum ContinentCode {
+export enum IContinentCode {
   AS = 'AS',
   EU = 'EU',
 }
 
-export enum CountryTitle {
+export enum ICountryTitle {
   GERMANY = 'Germany',
   INDIA = 'India',
 }
 
-export interface DataProvider {
+export interface IDataProvider {
   websiteURL: string;
   comments: null;
-  dataProviderStatusType: DataProviderStatusType;
+  dataProviderStatusType: IDataProviderStatusType;
   isRestrictedEdit: boolean;
   isOpenDataLicensed: boolean;
   isApprovedImport: boolean;
   license: string;
   dateLastImported: Date | null;
   id: number;
-  title: DataProviderTitle;
+  title: IDataProviderTitle;
 }
 
-export interface DataProviderStatusType {
+export interface IDataProviderStatusType {
   isProviderEnabled: boolean;
   id: number;
-  title: DataProviderStatusTypeTitle;
+  title: IDataProviderStatusTypeTitle;
 }
 
-export enum DataProviderStatusTypeTitle {
+export enum IDataProviderStatusTypeTitle {
   AutomatedImport = 'Automated Import',
   ManualDataEntry = 'Manual Data Entry',
 }
 
-export enum DataProviderTitle {
+export enum IDataProviderTitle {
   BundesnetzagenturDe = 'Bundesnetzagentur.de',
   OpenChargeMapContributors = 'Open Charge Map Contributors',
 }
 
-export interface Connection {
+export interface IConnection {
   id: number;
   connectionTypeID: number;
-  connectionType: ConnectionType;
+  connectionType: IConnectionType;
   reference: null | string;
   statusTypeID: number | null;
-  statusType: StatusType | null;
+  statusType: IStatusType | null;
   levelID: number | null;
-  level: Level | null;
+  level: ILevel | null;
   amps: number | null;
   voltage: number | null;
   powerKW: number | null;
   currentTypeID: number | null;
-  currentType: CurrentType | null;
+  currentType: ICurrentType | null;
   quantity: number | null;
   comments: null | string;
 }
 
-export interface ConnectionType {
-  formalName: FormalName | null;
+export interface IConnectionType {
+  formalName: IFormalName | null;
   isDiscontinued: boolean | null;
   isObsolete: boolean | null;
   id: number;
   title: string;
 }
 
-export enum FormalName {
+export enum IFormalName {
   BS1363TypeG = 'BS1363 / Type G',
   Cee74 = 'CEE 7/4',
   IEC603093Pin = 'IEC 60309 3-pin',
@@ -151,51 +151,51 @@ export enum FormalName {
   SaeJ17722009 = 'SAE J1772-2009',
 }
 
-export interface Level {
-  comments: Comments;
+export interface ILevel {
+  comments: IComments;
   isFastChargeCapable: boolean;
   id: number;
-  title: LevelTitle;
+  title: ILevelTitle;
 }
 
-export enum Comments {
+export enum IComments {
   Over2KWUsuallyNonDomesticSocketType = 'Over 2 kW, usually non-domestic socket type',
   The40KWAndHigher = '40KW and Higher',
   Under2KWUsuallyDomesticSocketTypes = 'Under 2 kW, usually domestic socket types',
 }
 
-export enum LevelTitle {
+export enum ILevelTitle {
   Level1LowUnder2KW = 'Level 1 : Low (Under 2kW)',
   Level2MediumOver2KW = 'Level 2 : Medium (Over 2kW)',
   Level3HighOver40KW = 'Level 3:  High (Over 40kW)',
 }
 
-export interface CurrentType {
-  description: Description;
+export interface ICurrentType {
+  description: IDescription;
   id: number;
-  title: CurrentTypeTitle;
+  title: ICurrentTypeTitle;
 }
 
-export enum Description {
+export enum IDescription {
   AlternatingCurrentSinglePhase = 'Alternating Current - Single Phase',
   AlternatingCurrentThreePhase = 'Alternating Current - Three Phase',
   DirectCurrent = 'Direct Current',
 }
 
-export enum CurrentTypeTitle {
+export enum ICurrentTypeTitle {
   ACSinglePhase = 'AC (Single-Phase)',
   ACThreePhase = 'AC (Three-Phase)',
   Dc = 'DC',
 }
 
-export interface StatusType {
+export interface IStatusType {
   isOperational: boolean | null;
   isUserSelectable: boolean;
   id: number;
-  title: StatusTypeTitle;
+  title: IStatusTypeTitle;
 }
 
-export enum StatusTypeTitle {
+export enum IStatusTypeTitle {
   Operational = 'Operational',
   PlannedForFutureDate = 'Planned For Future Date',
   Unknown = 'Unknown',

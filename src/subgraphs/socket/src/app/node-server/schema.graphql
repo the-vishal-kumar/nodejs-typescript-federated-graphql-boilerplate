@@ -1,8 +1,267 @@
 extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable"])
 
-type Query {
-  a: A
+scalar Date
+
+enum ISOCode {
+  DE
+  IN
 }
-type A {
-  foo: String
+
+enum ContinentCode {
+  AS
+  EU
+}
+
+enum CountryTitle {
+  Germany
+  India
+}
+
+enum DataProviderStatusTypeTitle {
+  "Automated Import"
+  AutomatedImport
+
+  "Manual Data Entry"
+  ManualDataEntry
+}
+
+enum DataProviderTitle {
+  "Bundesnetzagentur.de"
+  BundesnetzagenturDe
+
+  "Open Charge Map Contributors"
+  OpenChargeMapContributors
+}
+
+enum FormalName {
+  "BS1363 / Type G"
+  BS1363TypeG
+
+  "CEE 7/4"
+  Cee74
+
+  "IEC 60309 3-pin"
+  IEC603093Pin
+
+  "IEC 62196-2"
+  IEC621962
+
+  "IEC 62196-2 Type 2"
+  IEC621962Type2
+
+  "IEC 62196-3 Configuration AA"
+  IEC621963ConfigurationAA
+
+  "IEC 62196-3 Configuration FF"
+  IEC621963ConfigurationFF
+
+  "IEC Type M (SANS 164-1, IS 1293:2005)"
+  IECTypeMSANS1641IS12932005
+
+  "Not Specified"
+  NotSpecified
+
+  "SAE J1772-2009"
+  SaeJ17722009
+}
+
+enum Comments {
+  "Over 2 kW, usually non-domestic socket type"
+  Over2KWUsuallyNonDomesticSocketType
+
+  "40KW and Higher"
+  The40KWAndHigher
+
+  "Under 2 kW, usually domestic socket types"
+  Under2KWUsuallyDomesticSocketTypes
+}
+
+enum LevelTitle {
+  "Level 1 : Low (Under 2kW)"
+  Level1LowUnder2KW
+
+  "Level 2 : Medium (Over 2kW)"
+  Level2MediumOver2KW
+
+  "Level 3:  High (Over 40kW)"
+  Level3HighOver40KW
+}
+
+enum Description {
+  "Alternating Current - Single Phase"
+  AlternatingCurrentSinglePhase
+
+  "Alternating Current - Three Phase"
+  AlternatingCurrentThreePhase
+
+  "Direct Current"
+  DirectCurrent
+}
+
+enum CurrentTypeTitle {
+  "AC (Single-Phase)"
+  ACSinglePhase
+
+  "AC (Three-Phase)"
+  ACThreePhase
+
+  "DC"
+  Dc
+}
+
+enum StatusTypeTitle {
+  Operational
+  PlannedForFutureDate
+  Unknown
+}
+
+type Country {
+  isoCode: ISOCode!
+  continentCode: ContinentCode!
+  id: Int!
+  title: CountryTitle!
+}
+
+type OperatorInfo {
+  websiteURL: String
+  comments: String
+  phonePrimaryContact: String
+  phoneSecondaryContact: String
+  isPrivateIndividual: Boolean
+  addressInfo: AddressInfo
+  bookingURL: String
+  contactEmail: String
+  faultReportEmail: String
+  isRestrictedEdit: Boolean
+  id: Int!
+  title: String!
+}
+
+type AddressInfo {
+  id: Int!
+  title: String!
+  addressLine1: String!
+  addressLine2: String
+  town: String
+  stateOrProvince: String
+  postcode: String
+  countryID: Int!
+  country: Country!
+  latitude: Float!
+  longitude: Float!
+  contactTelephone1: String
+  contactTelephone2: String
+  contactEmail: String
+  accessComments: String
+  relatedURL: String
+  # distance: Float
+  # distanceUnit: Int!
+}
+
+type DataProviderStatusType {
+  isProviderEnabled: Boolean!
+  id: Int!
+  title: DataProviderStatusTypeTitle!
+}
+
+type DataProvider {
+  websiteURL: String!
+  comments: String
+  dataProviderStatusType: DataProviderStatusType!
+  isRestrictedEdit: Boolean!
+  isOpenDataLicensed: Boolean!
+  isApprovedImport: Boolean!
+  license: String!
+  dateLastImported: Date
+  id: Int!
+  title: DataProviderTitle!
+}
+
+type ConnectionType {
+  formalName: FormalName
+  isDiscontinued: Boolean
+  isObsolete: Boolean
+  id: Int!
+  title: String!
+}
+
+type Level {
+  comments: Comments!
+  isFastChargeCapable: Boolean!
+  id: Int!
+  title: LevelTitle!
+}
+
+type CurrentType {
+  description: Description!
+  id: Int!
+  title: CurrentTypeTitle!
+}
+
+type StatusType {
+  isOperational: Boolean
+  isUserSelectable: Boolean!
+  id: Int!
+  title: StatusTypeTitle!
+}
+
+type Connection {
+  id: Int!
+  connectionTypeID: Int!
+  connectionType: ConnectionType!
+  reference: String
+  statusTypeID: Int
+  statusType: StatusType
+  levelID: Int
+  level: Level
+  amps: Float
+  voltage: Float
+  powerKW: Float
+  currentTypeID: Int
+  currentType: CurrentType
+  quantity: Int
+  comments: String
+}
+
+# type Point {
+#   type: String!
+#   coordinates: [Float!]!
+# }
+
+type Socket {
+  identifier: String! # _id of saved document
+  serial: Int! # id of input object being saved
+  uuid: String!
+  operatorInfo: OperatorInfo
+  statusType: StatusType!
+  addressInfo: AddressInfo!
+  # location: Point!
+  dataProvider: DataProvider!
+  connections: [Connection!]!
+  dateCreated: Date!
+  dateLastVerified: Date!
+  dateLastStatusUpdate: Date!
+}
+
+type SocketConnection {
+  totalCount: Int!
+  edges: [SocketEdge!]!
+  pageInfo: PageInfo!
+}
+
+type SocketEdge {
+  cursor: String!
+  node: Socket!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  socket(identifier: String!): Socket
+  sockets(after: String, before: String, first: Int, last: Int): SocketConnection!
 }

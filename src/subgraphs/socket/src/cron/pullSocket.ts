@@ -4,9 +4,9 @@ import { Logger, Array } from '../util';
 const { OPEN_CHARGE_MAP_API_KEY } = process.env;
 
 export const pullSocket = async (): Promise<void> => {
-  if (!OPEN_CHARGE_MAP_API_KEY) throw new Error('Unable to pull sockets. Missing license');
-
   try {
+    if (!OPEN_CHARGE_MAP_API_KEY) throw new Error('Unable to pull sockets. Missing license');
+
     const requestHeaders = new Headers();
     requestHeaders.append('Accept', 'application/json');
 
@@ -32,13 +32,7 @@ export const pullSocket = async (): Promise<void> => {
       return true;
     });
 
-    const sockets: ISocketDocument[] = socketsToBeUpserted.map(item =>
-      Socket.build({
-        ...item,
-        serial: item.id,
-        location: { type: 'Point', coordinates: [item.addressInfo.longitude, item.addressInfo.latitude] },
-      }),
-    );
+    const sockets: ISocketDocument[] = socketsToBeUpserted.map(item => Socket.build(item));
 
     await Socket.insertMany(sockets);
   } catch (err) {
