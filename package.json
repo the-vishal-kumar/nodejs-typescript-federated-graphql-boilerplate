@@ -4,8 +4,10 @@
   "description": "",
   "scripts": {
     "build": "npx tsc",
-    "start": "docker-compose --env-file .env up --build",
-    "test": "docker-compose -f docker-compose.test.yml --env-file .env.test up --build -d && jest --coverage && docker-compose -f docker-compose.test.yml down",
+    "start": "docker-compose --env-file .env up --build --force-recreate",
+    "test": "docker-compose -f docker-compose.test.yml --env-file .env.test up --build --force-recreate -d && jest --coverage && docker-compose -f docker-compose.test.yml down",
+    "generate:countries:json": "npx ts-node src/subgraphs/socket/src/util/generateCountriesJson.ts",
+    "generate:sub:bounding:box": "npx ts-node src/subgraphs/socket/src/util/generateSubBoundingBoxesOfCountry.ts",
     "pretty": "cross-os pretty",
     "pretty:check": "cross-os pretty:check",
     "lint": "cross-os lint",

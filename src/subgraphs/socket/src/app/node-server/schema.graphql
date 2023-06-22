@@ -31,6 +31,9 @@ enum DataProviderTitle {
 
   "Open Charge Map Contributors"
   OpenChargeMapContributors
+
+  "Oplaadpalen.nl"
+  Oplaadpalennl
 }
 
 enum FormalName {
@@ -63,6 +66,21 @@ enum FormalName {
 
   "SAE J1772-2009"
   SaeJ17722009
+
+  "NACS"
+  NACS
+
+  "Type I/AS 3112/CPCS-CCC"
+  TypeIAS3122CPSCCC
+
+  "Tesla Connector"
+  TeslaConnector
+
+  "Europlug 2-Pin (CEE 7/16)"
+  Europlug2PinCEE716
+
+  "IEC 62196-3 Configuration EE"
+  IEC621963ConfigurationEE
 }
 
 enum Comments {
@@ -110,9 +128,32 @@ enum CurrentTypeTitle {
 }
 
 enum StatusTypeTitle {
+  "Operational"
   Operational
+
+  "Planned For Future Date"
   PlannedForFutureDate
+
+  "Unknown"
   Unknown
+
+  "Not Operational"
+  NotOperational
+
+  "Temporarily Unavailable"
+  TemporarilyUnavailable
+
+  "Removed (Duplicate Listing)"
+  RemovedDuplicateListing
+
+  "Partly Operational (Mixed)"
+  PartlyOperationalMixed
+
+  "Removed (Decommissioned)"
+  RemovedDecommissioned
+
+  "Currently Available (Automated Status)"
+  CurrentlyAvailableAutomatedStatus
 }
 
 type Country {

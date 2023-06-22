@@ -1,3 +1,3 @@
-import { pullSocket } from './pullSocket';
+import pullSocket from './pullSocket';
 
 export { pullSocket };

@@ -16,6 +16,9 @@ COPY . .
 # Build the TypeScript code
 RUN npm run build
 
+# Copy cow.txt
+COPY /src/config/cow.txt /subgraph/socket/build/config/cow.txt
+
 # Copy graphql.schema
 COPY /src/app/node-server/schema.graphql /subgraph/socket/build/app/node-server/schema.graphql
 

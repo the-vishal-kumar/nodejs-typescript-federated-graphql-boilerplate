@@ -110,6 +110,7 @@ export enum IDataProviderStatusTypeTitle {
 export enum IDataProviderTitle {
   BundesnetzagenturDe = 'Bundesnetzagentur.de',
   OpenChargeMapContributors = 'Open Charge Map Contributors',
+  Oplaadpalennl = 'Oplaadpalen.nl',
 }
 
 export interface IConnection {
@@ -149,6 +150,11 @@ export enum IFormalName {
   IECTypeMSANS1641IS12932005 = 'IEC Type M (SANS 164-1, IS 1293:2005)',
   NotSpecified = 'Not Specified',
   SaeJ17722009 = 'SAE J1772-2009',
+  NACS = 'NACS',
+  TypeIAS3122CPSCCC = 'Type I/AS 3112/CPCS-CCC',
+  TeslaConnector = 'Tesla Connector',
+  Europlug2PinCEE716 = 'Europlug 2-Pin (CEE 7/16)',
+  IEC621963ConfigurationEE = 'IEC 62196-3 Configuration EE',
 }
 
 export interface ILevel {
@@ -199,4 +205,10 @@ export enum IStatusTypeTitle {
   Operational = 'Operational',
   PlannedForFutureDate = 'Planned For Future Date',
   Unknown = 'Unknown',
+  NotOperational = 'Not Operational',
+  TemporarilyUnavailable = 'Temporarily Unavailable',
+  RemovedDuplicateListing = 'Removed (Duplicate Listing)',
+  PartlyOperationalMixed = 'Partly Operational (Mixed)',
+  RemovedDecommissioned = 'Removed (Decommissioned)',
+  CurrentlyAvailableAutomatedStatus = 'Currently Available (Automated Status)',
 }

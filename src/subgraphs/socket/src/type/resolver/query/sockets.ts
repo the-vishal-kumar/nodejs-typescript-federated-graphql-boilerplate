@@ -1,4 +1,4 @@
-import { ISocketDocument } from '../../model/Socket';
+import { ISocketDocument } from '../../model/socket';
 
 export interface ISocketEdge {
   cursor: string;

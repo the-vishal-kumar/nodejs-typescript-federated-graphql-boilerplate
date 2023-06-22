@@ -9,7 +9,7 @@ void (async (): Promise<void> => {
   await MongoAppInit();
   await NodeAppInit();
 
-  // await pullSocket();
+  await pullSocket();
   cron.schedule('1 0 * * *', async (): Promise<void> => {
     Logger.info('Socket polling initiated...');
     await pullSocket();
