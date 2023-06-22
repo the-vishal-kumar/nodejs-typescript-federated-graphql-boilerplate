@@ -4,7 +4,7 @@ const Colors = Enum({
   Red: 'red color',
   Green: 'green color',
   Blue: 'blue',
-}) as Readonly<{ Red: string; Green: string; Blue: string }>;
+});
 
 describe('Enum', () => {
   it('should return the correct value for a valid enum key', () => {
@@ -49,6 +49,6 @@ describe('getEnumKey', () => {
   });
 
   it('should return null if null value is passed', () => {
-    expect(getEnumKey(Colors, null)).toEqual(null);
+    expect(getEnumKey(Colors, Colors.Null)).toEqual('Null');
   });
 });

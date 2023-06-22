@@ -1,4 +1,4 @@
-export const getEnumKey = <T extends Record<string, string>>(
+export const getEnumKey = <T extends EnumType<T>>(
   enumObj: T,
   value: string | null | undefined,
 ): keyof T | string | null => {
@@ -15,14 +15,14 @@ type EnumType<T> = {
   [K in keyof T]: T[K] extends string | number ? T[K] : null;
 };
 
-const Enum = <T extends EnumType<T>>(baseEnum: T): Readonly<T> => {
+const Enum = <T extends EnumType<T>>(baseEnum: T): Readonly<EnumType<T> & { Null: null }> => {
   const enumWithNull = {
     ...baseEnum,
     Null: null,
   };
 
   return new Proxy(enumWithNull, {
-    get: (_, name): T => {
+    get: (_, name): EnumType<T> => {
       const propName = name.toString() as keyof T;
       if (!enumWithNull.hasOwnProperty(propName)) {
         throw new Error(`"${propName.toString()}" value does not exist in the enum`);
@@ -32,7 +32,7 @@ const Enum = <T extends EnumType<T>>(baseEnum: T): Readonly<T> => {
     set: (): never => {
       throw new Error('Cannot modify or add a new value to the enum');
     },
-  }) as Readonly<T>;
+  }) as Readonly<EnumType<T> & { Null: null }>;
 };
 
 export default Enum;

@@ -133,6 +133,7 @@ yarn.lock
 # Build
 build
 data
+countries.json
 
 # Docker configurations
 docker-compose.yml
