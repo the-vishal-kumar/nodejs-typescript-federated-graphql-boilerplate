@@ -100,10 +100,6 @@ A [NodeJs] / [TypeScript] application boilerplate with Federated 2 [GraphQL].
 
 -   Credentials live in `.env` file
 
-
-
-
-
 ## Git Workflow
 
 -   A branch is created for each ticket from *dev* branch
@@ -115,8 +111,6 @@ A [NodeJs] / [TypeScript] application boilerplate with Federated 2 [GraphQL].
     -   staging
     -   master
 -   Read next section for more information
-
-
 
 ## Error Logging
 
@@ -130,123 +124,122 @@ A [NodeJs] / [TypeScript] application boilerplate with Federated 2 [GraphQL].
 
 -   [New Relic]
 
-
-
 ## Folder Structure
 
-      📦nodejs-typescript-federated-graphql-boilerplate
-      ┣ 📂.husky
-      ┃ ┣ 📂_
-      ┃ ┃ ┣ 📜.gitignore
-      ┃ ┃ ┗ 📜husky.sh
-      ┃ ┣ 📜commit-msg
-      ┃ ┣ 📜pre-commit
-      ┃ ┗ 📜pre-push
-      ┣ 📂src
-      ┃ ┣ 📂database-test
-      ┃ ┃ ┣ 📜Dockerfile
-      ┃ ┃ ┗ 📜sockets.seed.data
-      ┃ ┣ 📂gateway
-      ┃ ┃ ┣ 📂src
-      ┃ ┃ ┃ ┣ 📂test
-      ┃ ┃ ┃ ┃ ┗ 📂unit
-      ┃ ┃ ┃ ┃ ┃ ┗ 📂util
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.unit.test.ts
-      ┃ ┃ ┃ ┣ 📂util
-      ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┗ 📜logger.ts
-      ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┣ 📜.nvmrc
-      ┃ ┃ ┣ 📜Dockerfile
-      ┃ ┃ ┣ 📜newrelic.js
-      ┃ ┃ ┣ 📜package.json
-      ┃ ┃ ┗ 📜tsconfig.json
-      ┃ ┗ 📂subgraphs
-      ┃ ┃ ┗ 📂socket
-      ┃ ┃ ┃ ┣ 📂src
-      ┃ ┃ ┃ ┃ ┣ 📂app
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂mongo-server
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂node-server
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜schema.graphql
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┣ 📂config
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜cow.txt
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜mongo-config.ts
-      ┃ ┃ ┃ ┃ ┣ 📂cron
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜pullSocket.ts
-      ┃ ┃ ┃ ┃ ┣ 📂middleware
-      ┃ ┃ ┃ ┃ ┣ 📂model
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜socket.ts
-      ┃ ┃ ┃ ┃ ┣ 📂resolver
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂query
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜socket.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┣ 📂test
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂e2e
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂resolver
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂query
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜socket.e2e.test.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.e2e.test.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📂unit
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜array.test.unit.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜enum.unit.test.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.unit.test.ts
-      ┃ ┃ ┃ ┃ ┣ 📂type
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂config
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜country.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂model
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜socket.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📂resolver
-      ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂query
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.ts
-      ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┃ ┣ 📂util
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜array.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜enum.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜generateCountriesJson.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜generateSubBoundingBoxesOfCountry.ts
-      ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
-      ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.ts
-      ┃ ┃ ┃ ┃ ┗ 📜index.ts
-      ┃ ┃ ┃ ┣ 📜.nvmrc
-      ┃ ┃ ┃ ┣ 📜Dockerfile
-      ┃ ┃ ┃ ┣ 📜newrelic.js
-      ┃ ┃ ┃ ┣ 📜package.json
-      ┃ ┃ ┃ ┗ 📜tsconfig.json
-      ┣ 📜.commitlintrc.json
-      ┣ 📜.dockerignore
-      ┣ 📜.env
-      ┣ 📜.env.sample
-      ┣ 📜.env.test
-      ┣ 📜.eslintrc.json
-      ┣ 📜.gitignore
-      ┣ 📜.nvmrc
-      ┣ 📜.prettierrc.json
-      ┣ 📜LICENSE
-      ┣ 📜PROBLEM.md
-      ┣ 📜README.md
-      ┣ 📜SOLUTION.md
-      ┣ 📜docker-compose.sample.yml
-      ┣ 📜docker-compose.test.yml
-      ┣ 📜docker-compose.yml
-      ┣ 📜jest.config.js
-      ┣ 📜package-lock.json
-      ┣ 📜package.json
-      ┗ 📜tsconfig.json
-
-
+        📦nodejs-typescript-federated-graphql-boilerplate
+        ┣ 📂.husky
+        ┃ ┣ 📂_
+        ┃ ┃ ┣ 📜.gitignore
+        ┃ ┃ ┗ 📜husky.sh
+        ┃ ┣ 📜commit-msg
+        ┃ ┣ 📜pre-commit
+        ┃ ┗ 📜pre-push
+        ┣ 📂src
+        ┃ ┣ 📂database-test
+        ┃ ┃ ┣ 📜Dockerfile
+        ┃ ┃ ┗ 📜sockets.seed.data
+        ┃ ┣ 📂gateway
+        ┃ ┃ ┣ 📂src
+        ┃ ┃ ┃ ┣ 📂test
+        ┃ ┃ ┃ ┃ ┗ 📂unit
+        ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.unit.test.ts
+        ┃ ┃ ┃ ┣ 📂util
+        ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┗ 📜logger.ts
+        ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┣ 📜.nvmrc
+        ┃ ┃ ┣ 📜Dockerfile
+        ┃ ┃ ┣ 📜newrelic.js
+        ┃ ┃ ┣ 📜package.json
+        ┃ ┃ ┗ 📜tsconfig.json
+        ┃ ┗ 📂subgraphs
+        ┃ ┃ ┗ 📂socket
+        ┃ ┃ ┃ ┣ 📂src
+        ┃ ┃ ┃ ┃ ┣ 📂app
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂mongo-server
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂node-server
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜schema.graphql
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┣ 📂config
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜countries.json
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜cow.txt
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜mongo-config.ts
+        ┃ ┃ ┃ ┃ ┣ 📂cron
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜pullSocket.ts
+        ┃ ┃ ┃ ┃ ┣ 📂middleware
+        ┃ ┃ ┃ ┃ ┣ 📂model
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜socket.ts
+        ┃ ┃ ┃ ┃ ┣ 📂resolver
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂query
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜socket.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┣ 📂test
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂e2e
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂resolver
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂query
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜socket.e2e.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.e2e.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📂unit
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜array.unit.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜enum.unit.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜generateCountriesJson.unit.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜generateSubBoundingBoxesOfCountry.unit.test.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.unit.test.ts
+        ┃ ┃ ┃ ┃ ┣ 📂type
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜country.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜socket.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📂resolver
+        ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂query
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜sockets.ts
+        ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┃ ┣ 📂util
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜array.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜enum.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜generateCountriesJson.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜generateSubBoundingBoxesOfCountry.ts
+        ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+        ┃ ┃ ┃ ┃ ┃ ┗ 📜logger.ts
+        ┃ ┃ ┃ ┃ ┗ 📜index.ts
+        ┃ ┃ ┃ ┣ 📜.nvmrc
+        ┃ ┃ ┃ ┣ 📜Dockerfile
+        ┃ ┃ ┃ ┣ 📜newrelic.js
+        ┃ ┃ ┃ ┣ 📜package.json
+        ┃ ┃ ┃ ┗ 📜tsconfig.json
+        ┣ 📜.commitlintrc.json
+        ┣ 📜.dockerignore
+        ┣ 📜.env
+        ┣ 📜.env.sample
+        ┣ 📜.env.test
+        ┣ 📜.eslintrc.json
+        ┣ 📜.gitignore
+        ┣ 📜.nvmrc
+        ┣ 📜.prettierrc.json
+        ┣ 📜LICENSE
+        ┣ 📜PROBLEM.md
+        ┣ 📜README.md
+        ┣ 📜SOLUTION.md
+        ┣ 📜docker-compose.sample.yml
+        ┣ 📜docker-compose.test.yml
+        ┣ 📜docker-compose.yml
+        ┣ 📜jest.config.js
+        ┣ 📜package-lock.json
+        ┣ 📜package.json
+        ┗ 📜tsconfig.json
 
 ## External Services/API Reference
 
