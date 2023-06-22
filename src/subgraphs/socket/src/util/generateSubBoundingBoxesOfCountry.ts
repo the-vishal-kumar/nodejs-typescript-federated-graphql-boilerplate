@@ -1,4 +1,4 @@
-export const generateSubBoundingBoxesOfCountry = (
+const generateSubBoundingBoxesOfCountry = (
   topLeft: [number, number],
   bottomRight: [number, number],
   maxArea = 10,
@@ -42,17 +42,4 @@ export const generateSubBoundingBoxesOfCountry = (
   return subBoundingBoxes;
 };
 
-// // Example usage (longitude, latitude)
-// const topLeft: [number, number] = [-74.0059, 40.7128];
-// const bottomRight: [number, number] = [-73.9352, 40.6413];
-
-// // Germany
-// const topLeft: [number, number] = [5.87, 55.05];
-// const bottomRight: [number, number] = [15.03, 47.27];
-
-// // India
-// const topLeft: [number, number] = [68.17, 35.99];
-// const bottomRight: [number, number] = [97.4, 6.75];
-
-// const subBoundingBoxes = generateSubBoundingBoxesOfCountry(topLeft, bottomRight);
-// console.log(subBoundingBoxes);
+export default generateSubBoundingBoxesOfCountry;

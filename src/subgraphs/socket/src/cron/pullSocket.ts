@@ -3,7 +3,14 @@ import path from 'node:path';
 
 import { Socket } from '../model';
 import { ISocketDocument, IISOCode, ICountryBoundingBox } from '../type';
-import { generateCountriesJson, generateSubBoundingBoxesOfCountry, Logger, Array } from '../util';
+import {
+  generateCountriesJson,
+  generateSubBoundingBoxesOfCountry,
+  Logger,
+  Array,
+  readInputFileAndReturnContent,
+  writeOutputFile,
+} from '../util';
 
 const countriesJsonPath = path.join(__dirname, '..', 'config', 'countries.json');
 const openChargeMapApiKey = String(process.env.OPEN_CHARGE_MAP_API_KEY);
@@ -49,7 +56,11 @@ const pullSocket = async (): Promise<void> => {
       countriesData = fs.readFileSync(countriesJsonPath, 'utf8');
     } catch (err) {
       Logger.error('CountriesJson not found:- ', err);
-      generateCountriesJson();
+
+      const content = readInputFileAndReturnContent();
+      const countriesJSON = generateCountriesJson(content);
+      writeOutputFile(countriesJSON);
+
       countriesData = fs.readFileSync(countriesJsonPath, 'utf8');
     }
 
