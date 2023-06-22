@@ -174,8 +174,8 @@ type OperatorInfo {
   contactEmail: String
   faultReportEmail: String
   isRestrictedEdit: Boolean
-  id: Int!
-  title: String!
+  id: Int
+  title: String
 }
 
 type AddressInfo {
