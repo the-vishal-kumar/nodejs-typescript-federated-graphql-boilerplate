@@ -1,18 +1,40 @@
-# nodejs-typescript-rest-boilerplate
+# nodejs-typescript-federated-graphql-boilerplate
 
 ## Problem Statement
 
--   Create an app that fetches charging stations from [Open Charge Map API] and then persists them in [MongoDB].
-    -   Following fields are to be imported from [Open Charge Map API]\:
+-   Create an application that pulls current charging station data from [Open Charge Map API] and then persists the data in [MongoDB].
+    -   Following fields are to be imported from [Open Charge Map API]:
         -   operatorInfo
         -   statusType
         -   addressInfo
         -   connections
--   It shall update the database only in case of changes in the polled data.
--   Provide a [GraphQL] endpoint which can be queried to pull all imported charging stations. Use [Federated GraphQL] Gateway and SubGraphs.
+-   The service pulls the data and updates the own database. It shall update the database only in case of changes in the pulled data.
+-   It is required to use UUIDs (v4) instead of the default ObjectIds internally.
+-   Provide a [GraphQL] endpoint which can be queried to pull all imported charging stations. Use [Federated GraphQL] Gateway and Subgraphs.
 -   It should be possible to paginate through the list in GraphQL using [relay-style pagination].
+-   Each service is to be deployed to a Kubernetes cluster, so shall have a docker image
 -   It should be possible to run the whole service and the import locally using a single command.
 -   No [NodeJs] frameworks shall be used. e.g NestJS, etc.
+
+## Actions to implement
+
+1.  **Create a [NodeJs] application using [Federated GraphQL]**
+
+1.  **Dockerize the application**
+
+    -   Create multiple Dockerfile(s) for each service, such as Gateway, Socket Subgraph, MongoDB, etc.
+
+1.  **Implement the polling service to fetch data of charging stations**
+
+1.  **Implement a cron job for the polling service to run at a regular interval**
+
+1.  **Create a query to fetch a particular charging station**
+
+1.  **Create a query to fetch relay-style paginated charging stations**
+
+1.  **Write unit and end-to-end tests**
+
+**Note**: Charging stations are being referred to as Socket
 
 ## Solution
 
@@ -21,33 +43,9 @@
 
     [Read more...](./SOLUTION.md)
 
-## Actions to implement
-
-1.  **Create an [NodeJs] application using [Federated GraphQL]\:**
-2.  **Dockerize the application**
-
-    -   Create multiple Dockerfile(s) for each service, such as Gateway, Subgraph, etc.
-    -   Create a docker-compose.yml as entry point of application.
-
-3.  **Implement the polling service to fetch data of smaller areas:**
-
-    -   Fetch data of smaller areas because the API is unpaginated.
-    -   This service shall start populating the mongo database as soon as the application is started.
-
-4.  **Implement a cron job for the polling service to run once everyday:**
-
-    -   This cron job shall run the polling service once every day to fetch new charging stations and update the existing ones.
-
-5.  **Create a query to fetch a particular charging station:**
-
-    -   Fetch a charging station by its ID.
-
-6.  **Create a query to fetch relay-style paginated charging stations:**
-
-7.  **Write unit tests and end-to-end tests:**
 
 [nodejs]: https://nodejs.org/en
-[open charge map api]: (https://openchargemap.org/site/develop/api#/operations/get-poi)
+[open charge map api]: https://openchargemap.org/site/develop/api#/operations/get-poi
 [graphql]: https://graphql.org/
 [federated graphql]: https://www.apollographql.com/docs/federation/
 [relay-style pagination]: https://www.apollographql.com/docs/technotes/TN0029-relay-style-connections/
