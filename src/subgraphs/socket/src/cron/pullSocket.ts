@@ -7,7 +7,6 @@ import {
   generateCountriesJson,
   generateSubBoundingBoxesOfCountry,
   Logger,
-  Array,
   readInputFileAndReturnContent,
   writeOutputFile,
 } from '../util';
@@ -25,29 +24,37 @@ const fetchSocketsData = async (uri: string): Promise<any> => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const updateSockets = async (socketsToBeUpserted: any[]): Promise<ISocketDocument[]> => {
-  const socketIDsToBeUpserted: { _id?: string; uuid: string }[] = [];
-  const sockets = await Array.filterArrayAsync(socketsToBeUpserted, async item => {
-    let socket = await Socket.findOne({ uuid: item.uuid }, { _id: 1, dateLastStatusUpdate: 1 });
-    if (socket) {
-      socket = socket.toObject();
-      const fetchedSocketLastUpdated = Math.floor(new Date(item.dateLastStatusUpdate).valueOf() / 1000);
-      const savedSocketLastUpdated = Math.floor(new Date(socket.dateLastStatusUpdate).valueOf() / 1000);
-      if (fetchedSocketLastUpdated <= savedSocketLastUpdated) return false;
+const getSocketsToBeUpserted = async (fetchedSockets: any[]): Promise<ISocketDocument[]> => {
+  const fetchedSocketsIDs: string[] = fetchedSockets.map(fetchedSocket => fetchedSocket?.id);
+  const alreadyExistingSockets = await Socket.find(
+    { serial: { $in: fetchedSocketsIDs } },
+    { serial: 1, dateLastStatusUpdate: 1 },
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const socketsToBeUpserted: any[] = [];
+  fetchedSockets.forEach(fetchedSocket => {
+    let exisitngSocket = alreadyExistingSockets.find(existingSocket => {
+      const eSocket = existingSocket.toObject();
+      return eSocket.serial === fetchedSocket.id;
+    });
+    if (exisitngSocket) {
+      exisitngSocket = exisitngSocket.toObject();
+      const fetchedSocketLastUpdated = Math.floor(new Date(fetchedSocket.dateLastStatusUpdate).valueOf() / 1000);
+      const savedSocketLastUpdated = Math.floor(new Date(exisitngSocket.dateLastStatusUpdate).valueOf() / 1000);
+
+      const isFetchedDataUpdated = fetchedSocketLastUpdated > savedSocketLastUpdated;
+      if (isFetchedDataUpdated) socketsToBeUpserted.push(Socket.build(fetchedSocket, exisitngSocket.id));
+    } else {
+      socketsToBeUpserted.push(Socket.build(fetchedSocket));
     }
-    socketIDsToBeUpserted.push({ _id: socket && socket._id, uuid: item.uuid });
-    return true;
   });
 
-  return sockets.map(socketToBeUpserted => {
-    const _id = socketIDsToBeUpserted.find(socketId => socketToBeUpserted.uuid === socketId.uuid)?._id;
-    const item = { ...socketToBeUpserted };
-    if (_id) item._id = _id;
-    return Socket.build(item);
-  });
+  return socketsToBeUpserted;
 };
 
 const pullSocket = async (): Promise<void> => {
+  Logger.info('Socket polling initiated...');
   try {
     if (!openChargeMapApiKey) throw new Error('Unable to pull sockets. Missing license');
 
@@ -67,8 +74,8 @@ const pullSocket = async (): Promise<void> => {
     const countriesJson = JSON.parse(countriesData);
     const enabledCountries = Object.values(IISOCode);
 
-    const fetchPromises = enabledCountries.flatMap(country => {
-      const countryData: ICountryBoundingBox = countriesJson[country];
+    const subBoundingBoxesOfCountries = enabledCountries.flatMap(countryIsoCode => {
+      const countryData: ICountryBoundingBox = countriesJson[countryIsoCode];
       const generatedSubBoundingBoxes = generateSubBoundingBoxesOfCountry(countryData.topLeft, countryData.bottomRight);
 
       return generatedSubBoundingBoxes.map(subBoundingBox => {
@@ -76,21 +83,51 @@ const pullSocket = async (): Promise<void> => {
         const [bottomRightLongitude, bottomRightLatitude] = subBoundingBox[1];
 
         let uri = `https://api.openchargemap.io/v3/poi?key=${openChargeMapApiKey}&camelcase=true&distanceunit=km&maxresults=1000`;
-        uri += `&countrycode=${country}&boundingbox=(${topLeftLatitude},${topLeftLongitude}),(${bottomRightLatitude},${bottomRightLongitude})`;
+        uri += `&countrycode=${countryIsoCode}&boundingbox=(${topLeftLatitude},${topLeftLongitude}),(${bottomRightLatitude},${bottomRightLongitude})`;
 
-        return fetchSocketsData(uri);
+        return {
+          countryIsoCode,
+          subBoundingBox,
+          uri,
+        };
       });
     });
 
-    const fetchedSockets = await Promise.all(fetchPromises);
-
-    const socketsToBeUpserted = fetchedSockets.flat();
-    const sockets: ISocketDocument[] = await updateSockets(socketsToBeUpserted);
-
-    await Socket.insertMany(sockets);
+    for (let subBoundingBoxIndex = 0; subBoundingBoxIndex < subBoundingBoxesOfCountries.length; subBoundingBoxIndex++) {
+      const { countryIsoCode, subBoundingBox, uri } = subBoundingBoxesOfCountries[subBoundingBoxIndex];
+      const fetchedSockets = await fetchSocketsData(uri);
+      const sockets: ISocketDocument[] = await getSocketsToBeUpserted(fetchedSockets);
+      try {
+        const upsertionResult = await Socket.bulkWrite(
+          sockets.map(socket => {
+            return {
+              updateOne: {
+                filter: { serial: socket.serial },
+                update: { $set: socket },
+                upsert: true,
+              },
+            };
+          }),
+        );
+        Logger.info(
+          `${subBoundingBoxIndex} Upsertion done:- ${JSON.stringify({
+            countryIsoCode,
+            subBoundingBox,
+            upsertionResult,
+          })}`,
+        );
+      } catch (err) {
+        Logger.error(
+          `${subBoundingBoxIndex} Upsertion failed:- ${JSON.stringify({ countryIsoCode, subBoundingBox, err })}`,
+        );
+        Logger.error(`${subBoundingBoxIndex} fetchedSockets ${JSON.stringify(fetchedSockets)}`);
+        Logger.error(`${subBoundingBoxIndex} sockets ${JSON.stringify(sockets)}`);
+      }
+    }
   } catch (err) {
     Logger.error('Error occured pulling sockets:- ', err);
   }
+  Logger.info('Socket polling finished...');
 };
 
 export default pullSocket;

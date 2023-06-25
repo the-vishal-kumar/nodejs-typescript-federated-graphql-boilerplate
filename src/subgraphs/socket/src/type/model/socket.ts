@@ -3,7 +3,8 @@ import { Document, Model } from 'mongoose';
 export interface ISocketDocument extends ISocket, Document {}
 
 export interface ISocketModel extends Model<ISocketDocument> {
-  build(attr: Partial<ISocket>): ISocketDocument;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  build(attr: any, id?: string): any;
 }
 
 export interface IPoint {

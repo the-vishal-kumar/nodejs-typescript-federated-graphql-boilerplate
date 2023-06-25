@@ -1,7 +1,7 @@
 const generateSubBoundingBoxesOfCountry = (
   topLeft: [number, number],
   bottomRight: [number, number],
-  maxArea = 10,
+  maxArea = 1,
 ): [number, number][][] => {
   const [topLeftLong, topLeftLat] = topLeft;
   const [bottomRightLong, bottomRightLat] = bottomRight;

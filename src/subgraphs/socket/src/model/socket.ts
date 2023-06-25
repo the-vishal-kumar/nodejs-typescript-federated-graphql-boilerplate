@@ -387,14 +387,15 @@ const socketSchema = new Schema(
 
 socketSchema.set('toObject', { getters: true });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-socketSchema.statics.build = (attribute: any): unknown => {
+socketSchema.statics.build = (attribute: any, id?: string): any => {
   const item = {
     ...attribute,
-    serial: attribute.id,
+    serial: Number(attribute.id),
     location: { type: 'Point', coordinates: [attribute.addressInfo.longitude, attribute.addressInfo.latitude] },
   };
+  if (id) item._id = id;
   delete item.id;
-  return new Socket(item);
+  return item;
 };
 
 const Socket = model<ISocketDocument, ISocketModel>('Socket', socketSchema);
