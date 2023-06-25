@@ -83,7 +83,7 @@ enum FormalName {
   IEC621963ConfigurationEE
 }
 
-enum Comments {
+enum LevelComments {
   "Over 2 kW, usually non-domestic socket type"
   Over2KWUsuallyNonDomesticSocketType
 
@@ -157,10 +157,10 @@ enum StatusTypeTitle {
 }
 
 type Country {
-  isoCode: ISOCode!
-  continentCode: ContinentCode!
-  id: Int!
-  title: CountryTitle!
+  isoCode: ISOCode
+  continentCode: ContinentCode
+  id: Int
+  title: CountryTitle
 }
 
 type OperatorInfo {
@@ -179,77 +179,77 @@ type OperatorInfo {
 }
 
 type AddressInfo {
-  id: Int!
-  title: String!
-  addressLine1: String!
+  id: Int
+  title: String
+  addressLine1: String
   addressLine2: String
   town: String
   stateOrProvince: String
   postcode: String
-  countryID: Int!
-  country: Country!
-  latitude: Float!
-  longitude: Float!
+  countryID: Int
+  country: Country
+  latitude: Float
+  longitude: Float
   contactTelephone1: String
   contactTelephone2: String
   contactEmail: String
   accessComments: String
   relatedURL: String
   # distance: Float
-  # distanceUnit: Int!
+  # distanceUnit: Int
 }
 
 type DataProviderStatusType {
-  isProviderEnabled: Boolean!
-  id: Int!
-  title: DataProviderStatusTypeTitle!
+  isProviderEnabled: Boolean
+  id: Int
+  title: DataProviderStatusTypeTitle
 }
 
 type DataProvider {
-  websiteURL: String!
+  websiteURL: String
   comments: String
-  dataProviderStatusType: DataProviderStatusType!
-  isRestrictedEdit: Boolean!
-  isOpenDataLicensed: Boolean!
-  isApprovedImport: Boolean!
-  license: String!
+  dataProviderStatusType: DataProviderStatusType
+  isRestrictedEdit: Boolean
+  isOpenDataLicensed: Boolean
+  isApprovedImport: Boolean
+  license: String
   dateLastImported: Date
-  id: Int!
-  title: DataProviderTitle!
+  id: Int
+  title: DataProviderTitle
 }
 
 type ConnectionType {
   formalName: FormalName
   isDiscontinued: Boolean
   isObsolete: Boolean
-  id: Int!
-  title: String!
+  id: Int
+  title: String
 }
 
 type Level {
-  comments: Comments!
-  isFastChargeCapable: Boolean!
-  id: Int!
-  title: LevelTitle!
+  comments: LevelComments
+  isFastChargeCapable: Boolean
+  id: Int
+  title: LevelTitle
 }
 
 type CurrentType {
-  description: Description!
-  id: Int!
-  title: CurrentTypeTitle!
+  description: Description
+  id: Int
+  title: CurrentTypeTitle
 }
 
 type StatusType {
   isOperational: Boolean
-  isUserSelectable: Boolean!
-  id: Int!
-  title: StatusTypeTitle!
+  isUserSelectable: Boolean
+  id: Int
+  title: StatusTypeTitle
 }
 
 type Connection {
-  id: Int!
-  connectionTypeID: Int!
-  connectionType: ConnectionType!
+  id: Int
+  connectionTypeID: Int
+  connectionType: ConnectionType
   reference: String
   statusTypeID: Int
   statusType: StatusType
@@ -265,23 +265,24 @@ type Connection {
 }
 
 # type Point {
-#   type: String!
-#   coordinates: [Float!]!
+#   type: String
+#   coordinates: [Float]
 # }
 
 type Socket {
-  identifier: String! # _id of saved document
-  serial: Int! # id of input object being saved
-  uuid: String!
+  identifier: String # _id of saved document
+  # id: Int
+  serial: Int # id of input object being saved
+  uuid: String
   operatorInfo: OperatorInfo
-  statusType: StatusType!
-  addressInfo: AddressInfo!
-  # location: Point!
-  dataProvider: DataProvider!
-  connections: [Connection!]!
-  dateCreated: Date!
-  dateLastVerified: Date!
-  dateLastStatusUpdate: Date!
+  statusType: StatusType
+  addressInfo: AddressInfo
+  # location: Point
+  dataProvider: DataProvider
+  connections: [Connection]
+  dateCreated: Date
+  dateLastVerified: Date
+  dateLastStatusUpdate: Date
 }
 
 type SocketConnection {
