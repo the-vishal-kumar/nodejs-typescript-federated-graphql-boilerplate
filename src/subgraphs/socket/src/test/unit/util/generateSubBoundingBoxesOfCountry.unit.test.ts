@@ -42,7 +42,7 @@ describe('generateSubBoundingBoxesOfCountry', () => {
         [15.03, 47.27],
       ],
     ];
-    const subBoundingBoxes = generateSubBoundingBoxesOfCountry(topLeft, bottomRight);
+    const subBoundingBoxes = generateSubBoundingBoxesOfCountry(topLeft, bottomRight, 10);
     expect(subBoundingBoxes).toEqual(expectedSubBoundingBoxes);
   });
 
@@ -451,7 +451,7 @@ describe('generateSubBoundingBoxesOfCountry', () => {
         [97.4, 6.749999999999999],
       ],
     ];
-    const subBoundingBoxes = generateSubBoundingBoxesOfCountry(topLeft, bottomRight);
+    const subBoundingBoxes = generateSubBoundingBoxesOfCountry(topLeft, bottomRight, 10);
     expect(subBoundingBoxes).toEqual(expectedSubBoundingBoxes);
   });
 });
