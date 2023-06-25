@@ -90,7 +90,7 @@
 
         -   Only Germany and India are enabled for now.
 
-    -   Calls the `generateSubBoundingBoxesOfCountry` method for each enabled country to generate square areas of 10 sq. km or less.
+    -   Calls the `generateSubBoundingBoxesOfCountry` method for each enabled country to generate square areas of 1 sq. km or less.
     -   Polling happens with respect to each generated sub box.
     -   A cron job is set to run the `pullSocket` method once every day to fetch new charging stations and update the existing ones.
 
@@ -484,6 +484,7 @@
             }
         }
         ```
+
 ### Steps to enable more countries
 
 1.  Lets say we want to enable for the `Netherlands`. Its `ISOCode` is `NL`.
@@ -585,14 +586,42 @@
 ## Problem Statement
 
 -   Create an application that pulls current charging station data from [Open Charge Map API] and then persists the data in [MongoDB].
+
     -   Following fields are to be imported from [Open Charge Map API]:
+
         -   operatorInfo
         -   statusType
         -   addressInfo
         -   connections
+
 -   The service pulls the data and updates the own database. It shall update the database only in case of changes in the pulled data.
 
     [Read more...](./PROBLEM.md)
+
+### Ambiguity in the problem statement
+
+-   Usgae of UUIDs internally
+
+    -   It is understable to use UUIDs to as client-facing IDs because they're platform-agnostic and are designed to be unique across all systems and time, whereas ObjectIds are generally unique within a single MongoDB instance.
+    -   But using it internally makes less sense for following reasons:
+
+        1.  Increased storage size: UUIDs are typically 128 bits (16 bytes) long, whereas ObjectIds are 96 bits (12 bytes).
+        1.  Index performance: UUIDs, being longer and less sequential, can impact index performance compared to ObjectIds.
+
+-   [Open Charge Map API] Documentation
+
+    -   It is not accurate. Some keys which are there in the schema are not present in actual response. Some keys present in response are not present in the schema.
+    -   Example:
+
+        1.  Socket.DataProvider.DataProviderStatusType.description - there is no such key in actual response.
+        1.  Socket.DataProvider.DataProviderStatusType.title - there is no mention of this key in the documentation.
+
+### Limitations of current solution
+
+-   Currently we are polling a maximum of 1000 sockets per sub area of about 1 sq. km.
+-   If there are more than 1000 sockets present in the sub area, then are not polling them.
+
+    -   We can shorten the maximum area of while calculating a sub area.
 
 
 [MongoDB]: https://mongodb.com/
